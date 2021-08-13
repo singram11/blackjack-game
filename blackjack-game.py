@@ -1,9 +1,10 @@
 ######### Blackjack Game #########
 
+import time
+import random
 
 ### Game Introduction ###
 
-import time
 
 def instructions():
   """ Function to show the instructions of the game"""
@@ -36,7 +37,7 @@ def show_menu():
     print("What would you like to do?")
     choice = input("> ")
     print()
-    choice = choice.lower()
+    choice = choice.lower() 
 #     Ask user for input on what they want to do: 
 #       if instructions show them the instructions 
     if choice == "i":
@@ -50,21 +51,26 @@ def show_menu():
       print("Goodbye")
       break 
     else:
-      print("Thats not an option.")
+      print("That's not an option.")
       print("Please try again.")
 
 def show_welcome():
   """Intro function gives user option for instructions or to play the game on first arrival"""
+  
   print()
   print("~~~Welcome to the Blackjack Game!~~~")
   print()
+
   while True:
     print("Do you know how to play? Or would you like to see the instructions?")
     print()
     print("Please choose [I]nstructions or [P]lay game.")
+
     choice = input("> ")
     print()
+    
     choice = choice.lower()
+
     if choice == "i":
       instructions()
       break
@@ -82,6 +88,7 @@ def show_welcome():
 # Set up the deck: 
 def create_deck():
   """function to create the deck """
+
   deck = [
     {"name":"Ace of Hearts","value":11},
     {"name":"Two of Hearts","value":2},
@@ -139,8 +146,8 @@ def create_deck():
 
   return deck
 
-#Shuffle the deck (would make this a funciton in future)
-import random
+#Shuffle the deck (would make this a function in future)
+
 
 deck = create_deck()
 
@@ -150,11 +157,13 @@ random.shuffle(deck)
 
 def deal_cards():
   """Add a single card to a hand"""
+
   new_card = deck.pop()
   return new_card
 
 def show_full_hand(hand):
   """Show all cards in a hand"""
+
   print("----------")
   for card in hand:
     print(f'{card["name"]} - {card["value"]}')
@@ -167,6 +176,7 @@ def show_full_hand(hand):
     
 def total_hand(hand):
   """Get total value of hand"""
+
   total = 0
   for card in hand:
     current_value = card["value"]
@@ -178,6 +188,7 @@ def total_hand(hand):
 
 def deal_player_hand():
   """Add cards to player hand and show them"""
+
   print("Lets deal your hand!")
   print()
   player_hand = []
@@ -187,7 +198,9 @@ def deal_player_hand():
   return player_hand
  
 def deal_dealer_hand():
-  """Add two cards to the dealers hand, show the first card and return the hand"""
+  """Add two cards to the dealers hand, 
+  show the first card and return the hand"""
+
   print("Lets see what the dealer has...")
   print()
   dealer_hand = []
@@ -198,6 +211,7 @@ def deal_dealer_hand():
 
 def show_dealer_hand(dealer_hand):
   """Show just the first card in the dealers hand"""
+
   print("The dealers hand: ")
   print()
   time.sleep(1)
@@ -213,8 +227,8 @@ def show_dealer_hand(dealer_hand):
 def check_naturals(player_hand):
   """Function to check for naturals win
     
-    Naturals win is an automatic 21 for the player
-  """
+    Naturals win is an automatic 21 for the player"""
+
   has_ace = False
   winner = False
   for card in player_hand: 
@@ -227,10 +241,8 @@ def check_naturals(player_hand):
   return winner 
       
 def change_ace_value(hand):
-  """Change the value of ace from 11 to 1
-  
-  Check if the 
-  """
+  """Change the value of ace from 11 to 1"""
+
   for card in hand: 
     if card["value"] == 11:
       card["value"] = 1
@@ -239,8 +251,8 @@ def change_ace_value(hand):
 def check_ace_value(hand): 
   """Check if we need to change the value of the ace
   
-    Checking if the hand is over 21
-  """
+    Checking if the hand is over 21"""
+
   total = total_hand(hand)
   if total > 21: 
     new_hand = change_ace_value(hand)
@@ -254,6 +266,7 @@ def check_ace_value(hand):
 
 def run_player_turn(player_hand):
   """Function to run the players turn and add cards as appropriate"""
+  
   #check if the player busts
   while total_hand(player_hand) < 21:
     print()
@@ -286,8 +299,10 @@ def run_player_turn(player_hand):
 
 def run_dealer_turn(dealer_hand):
   """function to run dealer hand and add cards as appropriate"""
+
   total = total_hand(dealer_hand)
   show_full_hand(dealer_hand) 
+
   #check if the total is less than or equal to 16 if so the dealer must take another card
   while total <= 16:
     print("The dealer takes another card.")
@@ -334,6 +349,7 @@ def play_game():
       print()
       print("Let's see what the dealer has")
       time.sleep(1)
+      
       #dealer turn and outcomes
       dealer_total = run_dealer_turn(dealer_hand)
       if dealer_total > 21:
